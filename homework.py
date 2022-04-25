@@ -45,8 +45,7 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        raise NotImplementedError(f'Определите метод get_spent_calories в'
-                                  f'{type(self).__name__}')
+        raise NotImplementedError
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -61,19 +60,12 @@ class Running(Training):
     RUN_CC_SUBT: int = 20
     RUN_CC_MULT: int = 18
 
-    def __init__(self,
-                 action: int,
-                 duration: float,
-                 weight: float
-                 ) -> None:
-        super().__init__(action, duration, weight)
-
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         duration_min = self.duration * self.MIN_IN_H
         spent_calories = ((self.RUN_CC_MULT * self.get_mean_speed()
-                           - self.RUN_CC_SUBT) * self.weight / self.M_IN_KM
-                          * duration_min)
+                           - self.RUN_CC_SUBT)
+                          * self.weight / self.M_IN_KM * duration_min)
         return spent_calories
 
 
